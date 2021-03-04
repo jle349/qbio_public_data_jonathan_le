@@ -34,12 +34,12 @@ library(TCGAbiolinks)
 #str(data) #use this line if you are typing in the command line
 
 #Group 2
-# clinical_file <- read.csv("data/tcga_brca_six_example_clinical.csv")
-# barcodes <- as.character( clinical_file$bcr_patient_barcode )
-# clin_query <- GDCquery(project = "TCGA-BRCA", data.category="Clinical", barcode= barcodes)
-# GDCdownload(clin_query)
-# clinic <- GDCprepare_clinic(clin_query, clinical.info="patient")
-# str(clinic) #use this line if you are typing in the command line
+ clinical_file <- read.csv("data/tcga_brca_six_example_clinical.csv")
+ barcodes <- as.character( clinical_file$bcr_patient_barcode )
+ clin_query <- GDCquery(project = "TCGA-BRCA", data.category="Clinical", barcode= barcodes)
+ GDCdownload(clin_query)
+ clinic <- GDCprepare_clinic(clin_query, clinical.info="patient")
+ str(clinic) #use this line if you are typing in the command line
 
 #Group 3
 # mutation <- GDCquery_Maf(tumor = "BRCA",save.csv=TRUE)
