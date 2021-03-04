@@ -1,4 +1,4 @@
-if (!require(TCGAbiolinks)) BiocManager::install("TCGAbiolinks")
+#if (!require(TCGAbiolinks)) BiocManager::install("TCGAbiolinks")
 
 library(TCGAbiolinks)
 library(SummarizedExperiment)
@@ -15,7 +15,7 @@ query <- GDCquery(project = "TCGA-BRCA",
                    data.category = "Transcriptome Profiling",
                    data.type = "Gene Expression Quantification",
                    workflow.type = "HTSeq - Counts")
-GDCdownload(query) #only need this line of code once to download the data
+#GDCdownload(query) #only need this line of code once to download the data
 sum_exp <- GDCprepare(query)
 # Create a tutorial on SummarizedExperiment
 
@@ -25,10 +25,10 @@ patient_ages <- patient_data$paper_age_at_initial_pathologic_diagnosis
 patient_data$age_category = ifelse(patient_ages < 40, "Young", ifelse(patient_ages >= 60, "Old", "Mid"))
 
 htseq_counts <- assays(sum_exp)$"HTSeq - Counts"
-patient_data$TP53_counts = htseq_counts["ENSG00000141510",]
-patient_data$ERBB2_counts = htseq_counts["ENSG00000141736",]
-patient_data$PIK3CA_counts = htseq_counts["ENSG00000121879",]
-patient_data$ESR1_counts = htseq_counts["ENSG00000091831",]
+patient_data$TP53_counts = sapply(htseq_counts["ENSG00000141510",], log10)
+patient_data$ERBB2_counts = sapply(htseq_counts["ENSG00000141736",], log10)
+patient_data$PIK3CA_counts = sapply(htseq_counts["ENSG00000121879",], log10)
+patient_data$ESR1_counts = sapply(htseq_counts["ENSG00000091831",], log10)
 
 #genes <- c("ENSG00000141510", "ENSG00000141736", "ENSG00000121879")
 #htseq_counts["ENSG00000141510",]
