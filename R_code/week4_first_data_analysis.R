@@ -25,19 +25,31 @@ patient_ages <- patient_data$paper_age_at_initial_pathologic_diagnosis
 patient_data$age_category = ifelse(patient_ages < 40, "Young", ifelse(patient_ages >= 60, "Old", "Mid"))
 
 htseq_counts <- assays(sum_exp)$"HTSeq - Counts"
-patient_data$TP53_counts = sapply(htseq_counts["ENSG00000141510",], log10)
-patient_data$ERBB2_counts = sapply(htseq_counts["ENSG00000141736",], log10)
-patient_data$PIK3CA_counts = sapply(htseq_counts["ENSG00000121879",], log10)
-patient_data$ESR1_counts = sapply(htseq_counts["ENSG00000091831",], log10)
+
+patient_data$TP53_counts = htseq_counts["ENSG00000141510",]
+patient_data$ERBB2_counts = htseq_counts["ENSG00000141736",]
+patient_data$PIK3CA_counts = htseq_counts["ENSG00000121879",]
+patient_data$ESR1_counts = htseq_counts["ENSG00000091831",]
+
+patient_data$TP53_counts_log = sapply(htseq_counts["ENSG00000141510",], log10)
+patient_data$ERBB2_counts_log = sapply(htseq_counts["ENSG00000141736",], log10)
+patient_data$PIK3CA_counts_log = sapply(htseq_counts["ENSG00000121879",], log10)
+patient_data$ESR1_counts_log = sapply(htseq_counts["ENSG00000091831",], log10)
 
 #genes <- c("ENSG00000141510", "ENSG00000141736", "ENSG00000121879")
 #htseq_counts["ENSG00000141510",]
 
 # Boxplots by age
-boxplot(TP53_counts~age_category, data = patient_data, main = "Boxplot of HTSeq - Counts for TP53 by Age Category")
-boxplot(ERBB2_counts~age_category, data = patient_data, main = "Boxplot of HTSeq - Counts for ERBB2 by Age Category")
-boxplot(PIK3CA_counts~age_category, data = patient_data, main = "Boxplot of HTSeq - Counts for PIK3CA by Age Category")
-boxplot(ESR1_counts~age_category, data = patient_data, main = "Boxplot of HTSeq - Counts for ESR1 by Age Category")
+boxplot(TP53_counts_log~age_category, data = patient_data, main = "Boxplot of HTSeq - Counts for TP53 by Age Category")
+boxplot(ERBB2_counts_log~age_category, data = patient_data, main = "Boxplot of HTSeq - Counts for ERBB2 by Age Category")
+boxplot(PIK3CA_counts_log~age_category, data = patient_data, main = "Boxplot of HTSeq - Counts for PIK3CA by Age Category")
+boxplot(ESR1_counts_log~age_category, data = patient_data, main = "Boxplot of HTSeq - Counts for ESR1 by Age Category")
+
+plot(x = patient_data$paper_age_at_initial_pathologic_diagnosis, y = patient_data$TP53_counts)
+plot(x = patient_data$paper_age_at_initial_pathologic_diagnosis, y = patient_data$ERBB2_counts)
+plot(x = patient_data$paper_age_at_initial_pathologic_diagnosis, y = patient_data$PIK3CA_counts)
+plot(x = patient_data$paper_age_at_initial_pathologic_diagnosis, y = patient_data$ESR1_counts)
+
 
 
 #######    Group 2: clinical   ###########
